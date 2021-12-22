@@ -13,7 +13,7 @@ const io = require("socket.io")(http, {
       "https://192.168.160.38:3000",
       "https://fallgame.herokuapp.com",
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["nuxt-comment"],
     credentials: true,
   },
@@ -35,7 +35,7 @@ app.use(function (req, res, next) {
     "Access-Control-Allow-Origin",
     "http://localhost:3000,https://fallgame.herokuapp.com,https://192.168.160.38:3000"
   );
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
