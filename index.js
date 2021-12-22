@@ -3,7 +3,7 @@ const router = express.Router();
 const cors = require("cors");
 
 const session = require("express-session");
-const cookieSession = require("cookie-session");
+// const cookieSession = require("cookie-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 // sequelize
