@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Socket.IO chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font: 23px Helvetica, Arial;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="messages"></ul>
+    <div id="comments"></div>
+    <form action="">
+        <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.js"
+        integrity="sha256-5i/mQ300M779N2OVDrl16lbohwXNUdzL/R2aVUXyXWA=" crossorigin="anonymous"></script>
+    <script>
+        const socket = io();
+        let count = 0;
+
+        $('form').submit(() => {
+            if ($('#m').val() === "") { return false }
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+        });
+        socket.on('chat message', (msg) => {
+            createText(msg);
+        });
+
+        // 元サイトhttps://qiita.com/youtoy/items/051dc658025a3b21c7f0
+        async function createText(msg) {
+            let div_text = document.createElement('div');
+            div_text.id = "text" + count; //アニメーション処理で対象の指定に必要なidを設定
+            count++;
+            div_text.style.position = 'fixed'; //テキストのは位置を絶対位置にするための設定
+            div_text.style.whiteSpace = 'nowrap' //画面右端での折り返しがなく、画面外へはみ出すようにする
+            div_text.style.left = (document.documentElement.clientWidth) + 'px'; //初期状態の横方向の位置は画面の右端に設定
+            const random = Math.round(Math.random() * document.documentElement.clientHeight);
+            div_text.style.top = random + 'px';  //初期状態の縦方向の位置は画面の上端から下端の間に設定（ランダムな配置に）
+            div_text.appendChild(document.createTextNode(msg)); //画面上に表示されるテキストを設定
+            document.getElementById('comments').appendChild(div_text); //comments直下へ挿入            
+
+            //ライブラリを用いたテキスト移動のアニメーション： durationはアニメーションの時間、
+            //        横方向の移動距離は「画面の横幅＋画面を流れるテキストの要素の横幅」、移動中に次の削除処理がされないようawait
+            await gsap.to("#" + div_text.id, { duration: 5, x: -1 * (document.documentElement.clientWidth + div_text.clientWidth) });
+
+            div_text.parentNode.removeChild(div_text); //画面上の移動終了後に削除
+        }
+    </script>
+
+</body>
+
+</html>
