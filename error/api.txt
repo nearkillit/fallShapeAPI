@@ -1,3 +1,0 @@
-Indicate whether a cookie is intended to be set in a cross-site context by specifying its SameSite attribute
-
-Indicate whether to send a cookie in a cross-site request by specifying its SameSite attribute
