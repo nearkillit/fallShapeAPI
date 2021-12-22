@@ -57,7 +57,8 @@ passport.use(
     },
     async (username, password, done) => {
       const userData = await db.users.findOne({ where: { email: username } });
-      console.log(userData);
+      console.log(username, "username");
+      console.log(userData, "userData");
       if (!userData) {
         return done(null, false);
       } else if (username !== userData.email) {
