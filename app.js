@@ -8,7 +8,11 @@ const http = require("http").Server(app);
 // socket
 const io = require("socket.io")(http, {
   cors: {
-    origin: ["http://localhost:3000", "https://fallgame.herokuapp.com"],
+    origin: [
+      "http://localhost:3000",
+      "https://192.168.160.38:3000",
+      "https://fallgame.herokuapp.com",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["nuxt-comment"],
     credentials: true,
@@ -29,7 +33,7 @@ const PORT = process.env.PORT || 7000;
 app.use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Origin",
-    "http://localhost:3000,https://fallgame.herokuapp.com"
+    "http://localhost:3000,https://fallgame.herokuapp.com,https://192.168.160.38:3000"
   );
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
   res.header(
@@ -41,22 +45,6 @@ app.use(function (req, res, next) {
 });
 
 app.use("/", require("./index"));
-
-// Postgres操作
-
-// app.get('/' , async function(req, res){
-//     // res.sendFile(__dirname+'/index.html');
-//     const getData = await db.TestClass.findAll()
-//     res.send(getData)
-// });
-
-// app.post("/create", function (req, res) {
-//     db.TestClass.create({
-//       attr1: "test",
-//     }).then(() => {
-//       res.send("Data Created.");
-//     });
-// });
 
 // socket 通信
 io.on("connection", (socket) => {
