@@ -13,7 +13,7 @@ const { Op } = require("sequelize");
 router.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://fallgame.herokuapp.com"],
   })
 );
 router.use(express.json());
@@ -57,7 +57,7 @@ passport.use(
     },
     async (username, password, done) => {
       const userData = await db.users.findOne({ where: { email: username } });
-
+      console.log(userData);
       if (!userData) {
         return done(null, false);
       } else if (username !== userData.email) {
