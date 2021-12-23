@@ -74,7 +74,7 @@ passport.use(
         return done(null, false);
       } else {
         // Success and return user information.
-        getUser.data = userData.dataValues;
+        getUser = userData.dataValues;
         return done(null, userData.dataValues);
       }
     }
