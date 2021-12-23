@@ -9,6 +9,9 @@ const LocalStrategy = require("passport-local").Strategy;
 // sequelize
 const db = require("./models/index");
 const { Op } = require("sequelize");
+// herokuのプロキシ回避
+let getUser = {};
+
 // express-session
 router.use(
   cors({
@@ -71,6 +74,7 @@ passport.use(
         return done(null, false);
       } else {
         // Success and return user information.
+        getUser = userData.dataValues;
         return done(null, userData.dataValues);
       }
     }
@@ -86,8 +90,10 @@ router.get("/failure", (req, res) => {
 });
 
 router.get("/success", (req, res) => {
-  console.log(req.session);
-  res.send(req.user);
+  console.log(Boolean(req.session));
+  console.log(getUser);
+  if (req.session) res.send(req.user);
+  else res.send(getUser);
 });
 
 router.post(
