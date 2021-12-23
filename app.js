@@ -4,9 +4,10 @@ const app = express();
 // const session = require('express-session');
 // const cookieSession = require("cookie-session");
 const http = require("http").Server(app);
+const https = require("https").Server(app);
 
 // socket
-const io = require("socket.io")(http, {
+const io = require("socket.io")(https, {
   cors: {
     origin: [
       "http://localhost:3000",
