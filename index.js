@@ -90,9 +90,9 @@ router.get("/failure", (req, res) => {
 });
 
 router.get("/success", (req, res) => {
-  console.log(req.session.id);
+  console.log(req.session.passport);
   console.log(req.session);
-  if (req.session.id) res.send(req.user);
+  if (req.session.passport) res.send(req.user);
   else res.send(getUser);
 });
 
