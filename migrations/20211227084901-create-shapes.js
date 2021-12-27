@@ -19,6 +19,9 @@ module.exports = {
       put_x: {
         type: Sequelize.INTEGER,
       },
+      user_name: {
+        type: Sequelize.STRING,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

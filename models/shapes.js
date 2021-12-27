@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   shapes.init({
     user_id: DataTypes.INTEGER,
-    put_x: DataTypes.INTEGER
+    put_x: DataTypes.INTEGER,
+    user_name: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'shapes',
